@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>WebHook Client</title>
+</head>
+<body>
+    <h1>Enviar WebHook</h1>
+    <button id="sendWebhookBtn">Enviar WebHook</button>
+
+    <script>
+        document.getElementById('sendWebhookBtn').addEventListener('click', () => {
+            // Datos del WebHook
+            const webhookData = {
+                message: "Hola Mundo desde WebHook",
+                timestamp: new Date().toISOString()
+            };
+
+            // Enviar WebHook con fetch
+            fetch('http://localhost:3000/webhook', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(webhookData)
+            })
+            .then(response => response.text())
+            .then(data => {
+                console.log('Respuesta del servidor:', data);
+            })
+            .catch(error => {
+                console.error('Error al enviar WebHook:', error);
+            });
+        });
+    </script>
+</body>
+</html>
